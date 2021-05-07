@@ -1,0 +1,4 @@
+name: ChatLinkerBungee
+version: ${project.version}
+main: me.hsgamer.chatlinkerbungee.ChatLinkerBungee
+description: Link the chat
