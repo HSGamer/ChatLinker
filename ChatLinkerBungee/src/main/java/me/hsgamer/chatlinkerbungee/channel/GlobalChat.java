@@ -31,6 +31,6 @@ public class GlobalChat extends Channel {
         output.writeUTF(globalChatEvent.getPlayerName());
         output.writeUTF(globalChatEvent.getMessage());
 
-        sendAll(output.toByteArray());
+        sendAll(output.toByteArray(), true);
     }
 }
