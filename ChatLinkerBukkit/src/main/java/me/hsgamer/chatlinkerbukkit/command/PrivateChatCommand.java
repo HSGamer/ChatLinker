@@ -4,25 +4,33 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import me.hsgamer.chatlinkerbukkit.ChatLinkerBukkit;
 import me.hsgamer.chatlinkerbukkit.MainConfig;
-import me.hsgamer.chatlinkerbukkit.Permissions;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 
 import java.util.Arrays;
 
 public class PrivateChatCommand extends Command {
+    private static final Permission PERMISSION = new Permission("chatlinker.privatechat", PermissionDefault.TRUE);
+
+    static {
+        Bukkit.getPluginManager().addPermission(PERMISSION);
+    }
+
     private final ChatLinkerBukkit instance;
 
     public PrivateChatCommand(ChatLinkerBukkit instance) {
         super("privatechat", "Private chat", "/privatechat <player> <message>", Arrays.asList("pc", "whisper"));
         this.instance = instance;
+        setPermission(PERMISSION.getName());
     }
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        if (!sender.hasPermission(Permissions.PRIVATE_CHAT)) {
-            MessageUtils.sendMessage(sender, MainConfig.NO_PERMISSION.getValue());
+        if (!testPermission(sender)) {
             return false;
         }
         if (args.length < 2) {

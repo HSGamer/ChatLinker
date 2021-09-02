@@ -2,8 +2,8 @@ package me.hsgamer.chatlinkerbukkit.channel;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import me.hsgamer.chatlinkerbukkit.Channel;
 import me.hsgamer.chatlinkerbukkit.MainConfig;
+import me.hsgamer.hscore.bukkit.channel.Channel;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

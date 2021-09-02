@@ -3,7 +3,7 @@ package me.hsgamer.chatlinkerbungee.channel;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import me.hsgamer.chatlinkerbungee.Channel;
+import me.hsgamer.hscore.bungeecord.channel.Channel;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Plugin;
 
