@@ -11,8 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PrivateChatCommand extends Command {
     private static final Permission PERMISSION = new Permission("chatlinker.privatechat", PermissionDefault.TRUE);
@@ -48,5 +48,19 @@ public class PrivateChatCommand extends Command {
         output.writeUTF(message);
         instance.getPrivateChat().send(output.toByteArray());
         return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+        if (args.length == 1) {
+            String player = args[0].trim().toLowerCase(Locale.ROOT);
+            Set<String> players = instance.getGlobalPlayerList().getPlayers();
+            if (player.isEmpty()) {
+                return new ArrayList<>(players);
+            } else {
+                return players.stream().filter(s -> s.toLowerCase(Locale.ROOT).startsWith(player)).collect(Collectors.toList());
+            }
+        }
+        return Collections.emptyList();
     }
 }
