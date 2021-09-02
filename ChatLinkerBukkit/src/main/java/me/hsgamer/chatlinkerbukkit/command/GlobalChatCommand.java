@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 public class GlobalChatCommand extends Command {
     private static final Permission PERMISSION = new Permission("chatlinker.globalchat", PermissionDefault.TRUE);
@@ -22,7 +22,7 @@ public class GlobalChatCommand extends Command {
     private final ChatLinkerBukkit instance;
 
     public GlobalChatCommand(ChatLinkerBukkit instance) {
-        super("globalchat", "Global chat", "/privatechat <message>", Arrays.asList("gc", "chat"));
+        super("globalchat", "Global chat", "/globalchat <message>", Collections.singletonList("gc"));
         this.instance = instance;
         setPermission(PERMISSION.getName());
     }

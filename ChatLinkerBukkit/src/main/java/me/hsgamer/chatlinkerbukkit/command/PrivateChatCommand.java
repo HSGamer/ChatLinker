@@ -12,6 +12,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class PrivateChatCommand extends Command {
     private static final Permission PERMISSION = new Permission("chatlinker.privatechat", PermissionDefault.TRUE);
@@ -23,7 +24,7 @@ public class PrivateChatCommand extends Command {
     private final ChatLinkerBukkit instance;
 
     public PrivateChatCommand(ChatLinkerBukkit instance) {
-        super("privatechat", "Private chat", "/privatechat <player> <message>", Arrays.asList("pc", "whisper"));
+        super("privatechat", "Private chat", "/privatechat <player> <message>", Collections.singletonList("pc"));
         this.instance = instance;
         setPermission(PERMISSION.getName());
     }
@@ -46,12 +47,6 @@ public class PrivateChatCommand extends Command {
         output.writeUTF(player);
         output.writeUTF(message);
         instance.getPrivateChat().send(output.toByteArray());
-        MessageUtils.sendMessage(sender, MainConfig.PRIVATE_CHAT.getValue()
-                .replace("{server}", MainConfig.SERVER_NAME.getValue())
-                .replace("{from_player}", sender.getName())
-                .replace("{to_player}", player)
-                .replace("{message}", message)
-        );
         return true;
     }
 }

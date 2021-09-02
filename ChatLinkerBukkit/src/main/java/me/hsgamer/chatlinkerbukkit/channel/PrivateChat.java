@@ -19,12 +19,13 @@ public class PrivateChat extends Channel {
     @Override
     public void handleMessage(Player player, byte[] data) {
         ByteArrayDataInput input = ByteStreams.newDataInput(data);
+        boolean response = input.readBoolean();
         String serverName = input.readUTF();
         String fromPlayer = input.readUTF();
         String toPlayer = input.readUTF();
         String message = input.readUTF();
 
-        Optional.ofNullable(Bukkit.getPlayer(toPlayer))
+        Optional.ofNullable(Bukkit.getPlayer(response ? fromPlayer : toPlayer))
                 .ifPresent(player1 -> MessageUtils.sendMessage(player1, MainConfig.PRIVATE_CHAT.getValue()
                         .replace("{server}", serverName)
                         .replace("{from_player}", fromPlayer)

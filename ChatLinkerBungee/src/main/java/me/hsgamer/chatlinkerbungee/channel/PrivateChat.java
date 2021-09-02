@@ -32,6 +32,17 @@ public class PrivateChat extends Channel {
         Optional.ofNullable(getPlugin().getProxy().getPlayer(toPlayer))
                 .ifPresent(proxiedPlayer -> {
                     ByteArrayDataOutput output = ByteStreams.newDataOutput();
+                    output.writeBoolean(false);
+                    output.writeUTF(privateChatEvent.getServerName());
+                    output.writeUTF(privateChatEvent.getFromPlayer());
+                    output.writeUTF(privateChatEvent.getToPlayer());
+                    output.writeUTF(privateChatEvent.getMessage());
+                    send(proxiedPlayer.getServer().getInfo(), output.toByteArray());
+                });
+        Optional.ofNullable(getPlugin().getProxy().getPlayer(fromPlayer))
+                .ifPresent(proxiedPlayer -> {
+                    ByteArrayDataOutput output = ByteStreams.newDataOutput();
+                    output.writeBoolean(true);
                     output.writeUTF(privateChatEvent.getServerName());
                     output.writeUTF(privateChatEvent.getFromPlayer());
                     output.writeUTF(privateChatEvent.getToPlayer());
